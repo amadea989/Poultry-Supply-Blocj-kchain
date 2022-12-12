@@ -1,0 +1,56 @@
+/* Author: Sky Karoli; Imaan Lalmohamed
+Date: 30/11/2022
+*/
+
+
+/*  RULES    */
+rule distroSeeStock{
+  description: "Distributor can see the stock in the retail shop of his route"
+  participant (p): "org.kuku.net.distributor"
+  operation: READ
+  resource: "org.kuku.net.*"
+  condition: //district has to be similar to the distro's route
+  action: ALLOW
+}
+
+rule farmerSeeStock{
+  description:"farmer can update and see all stock in all retail shops "
+  participant (p): "org.kuku.net.farmer"
+  operation: READ
+  resource: "org.kuku.net.kuku_retail"
+  condition:
+  action: ALLOW
+}
+rule farmerSeeShipment {
+  description: "farmer can see all the shipment orders made for ease of preparation"
+  participant (p): "org.kuku.net.farmer"
+  operation: ALL
+  resource: "org.kuku.net.shipmentOrder"
+  condition:
+  action:ALLOW
+}
+
+rule distroSeeShipment{
+  description: "distributor can see all the shipment orders made for ease of preparation"
+  participant (p): "org.kuku.net.distributor"
+  operation: ALL
+  resource: "org.kuku.net.shipmentOrder"
+  condition:
+  action:ALLOW
+}
+rule distroSeeShipment{
+  description: "distributor can see all the shipment orders made for ease of preparation"
+  participant (p): "org.kuku.net.distributor"
+  operation: ALL
+  resource: "org.kuku.net.shipmentOrder"
+  condition:
+  action:ALLOW
+}
+rule EmployeeSeeshop {
+  description:"Retsil employees can see all stock and all info on their shop"
+  participant (p): "org.kuku.net.retail_employee"
+  operation: ALL
+  resource: "org.kuku.net.kuku_retail"
+  condition:
+}
+ 

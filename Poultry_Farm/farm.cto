@@ -74,7 +74,8 @@ concept COMMODITY_TYPE {
 
 participant farmer identified by farmerID{
   o String farmerID
-  o PERSON farmer_identity
+  o farm farmID
+  o PERSON farmer_identity //Use of concept class
 }
 
 participant distributor identified by distro_ID {
@@ -82,61 +83,85 @@ participant distributor identified by distro_ID {
   o ROUTE distro_route
 }
 
-participant kuku_retail identified by outlet_id{
-  o String outlet_id
+/* 
+participant kuku_retail identified by outletID{
+  o String outletID
   o ADDRESS outlet_address
+}
+*/
+
+participant retail_employee identified by employeeID{
+  o String employeeID
+  o PERSON employee_details //Use of concept class
+  //--> outletID shopID
 }
 
 participant customer identified by customerID {
   o String customerID
-  o PERSON customerDetails
+  o PERSON customerDetails //Use of concept class
   o ADDRESS deliveryAddress
 }
 
 participant auditor identified by auditorID {
   o String auditorID
-  o PERSON auditor_details
+  o PERSON auditor_details  //Use of concept class
 }
 
 /*   ASSETS  */
-asset chickenDetail identified by ckID{
-  o string ckID
-  o PORTION portion
-  o EXTRAS extras optional
-  o string weight
+asset farm identified by farmID{
+  o String farmID
+  o ADDRESS farm_address
+}
 
+asset kuku_retail identified by outletID{
+  o String outletID
+  o ADDRESS kukushop_address
 }
 
 asset order identified by orderID {
   o String orderID
-  --> chickenDetail pizza
-  --> kuku_retail shop 
-  o string weight
+  --> customer consumer
+  //o string weight
   o STATUS status
 }
 
 asset shipmentOrder identified by shipmentID{
   o String shipmentID
-  --> chickenDetail orderDetails
-  --> kuku_retail shop
+  //--> chickenDetail orderDetails
   o String weight
   o STATUS status
 }
 
 /* TRANSACTIONS    */
+transaction production{
 
-transaction transactionName {}
-
-
-
-
-
-/*  RULES    */
-rule rulename{
-  description:
-  participant:
-  operation:
-  resource:
-  condition:
-  action:
 }
+
+transaction requestApproval{
+
+}
+
+transaction process{
+
+}
+
+transaction shipmentorder {
+  
+}
+
+transaction distribute_shipment{
+
+}
+
+transaction retailOrder{
+
+}
+
+transaction dispatchorder{
+
+}
+
+transaction deliverOrder{
+
+}
+transaction
