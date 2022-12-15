@@ -38,9 +38,9 @@ rule distroSeeShipment{
   condition:
   action:ALLOW
 }
-rule distroSeeShipment{
-  description: "distributor can see all the shipment orders made for ease of preparation"
-  participant (p): "org.kuku.net.distributor"
+rule EmployeeOrderShipment{
+  description: "Retail employee oreders shipment from the farm"
+  participant (p): "org.kuku.net.retail_employee"
   operation: ALL
   resource: "org.kuku.net.shipmentOrder"
   condition:
@@ -53,4 +53,29 @@ rule EmployeeSeeshop {
   resource: "org.kuku.net.kuku_retail"
   condition:
 }
- 
+rule CustomerSeeSelf{
+  description:"Customer sees their credentials"
+  participant (p): "org.kuku.net.customer"
+  operation: ALL
+  resource (r): "org.kuku.net.customer"
+  condition: //(p.getIdentifier()==r.getIdentifier)
+  action: ALLOW
+}
+
+rule CustomerSeeStock {
+  description: "Customer can see the available stock in the retail store"
+  participant (p): "org.kuku.net.customer"
+  operation: READ
+  resource:
+  condition:
+  action:
+}
+
+rule rulename {
+  description:
+  participant (p):
+  operation:
+  resource:
+  condition:
+  action:
+}

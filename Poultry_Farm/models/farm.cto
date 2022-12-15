@@ -1,0 +1,178 @@
+/* Author: Sky Karoli; Imaan Lalmohamed
+Date: 30/11/2022
+*/
+
+namespace org.kuku.net
+
+/* ENUMERATOR   */
+enum GENDER{
+  o Male
+  o Female
+  o Other
+}
+
+enum STATUS{
+  o PRODUCED
+  o ORDERED
+  o PREDPARED
+  o DISTRIBUTED
+  o DISPATCHED
+  o DELIVERED
+}
+
+enum PORTION{
+  o Chicken_Leg
+  o Chicken_Thighs
+  o Chicken_Drumsticks
+  o Chicken_Breasts
+  o Chicken_Wings
+  o Whole_Chicken
+}
+
+enum EXTRAS {
+  o heart
+  o gizzard
+  o feet
+  o head
+  o eggs
+}
+
+enum ROUTE{
+  o Flacq
+  o Grand_Port
+  o Moka
+  o Pamplemousses
+  o Plaines_Wilhems
+  o Port_Louis
+  o Rivere_du_Rempart
+  o Rivere_Noire
+  o Savanne
+}
+
+/* CONCEPT */
+concept ADDRESS{
+  o String postcode
+  o String streetname
+  o String village
+  o String district
+}
+
+concept PERSON{
+  o String ID_No regex=/[0-9]{8}/
+  o String lastname
+  o String firstname
+  o GENDER gender
+}
+
+concept COMMODITY_TYPE {
+  o String COMMODITY_TYPE
+  o PORTION portion
+  o EXTRAS extras
+}
+
+/* PARTICIPANTS */
+
+participant farmer identified by farmerID{
+  o String farmerID
+  o farm farmID
+  o PERSON farmer_identity //Use of concept class
+}
+
+participant distributor identified by distro_ID {
+  o String distro_ID
+  o ROUTE distro_route
+}
+
+participant retail_employee identified by employeeID{
+  o String employeeID
+  o PERSON employee_details //Use of concept class
+  --> outletID shopID
+}
+
+participant customer identified by customerID {
+  o String customerID
+  o PERSON customerDetails //Use of concept class
+  o ADDRESS deliveryAddress
+}
+
+participant auditor identified by auditorID {
+  o String auditorID
+  o PERSON auditor_details  //Use of concept class
+}
+
+/*   ASSETS  */
+asset farm identified by farmID{
+  o String farmID
+  o ADDRESS farm_address
+}
+
+asset shipment identified by shipmentID{
+  o String shipmentID
+  o PORTION[] totalportion
+  o EXTRAS[] totalextras
+}
+asset shipmentOrder identified by shipmentdetailsID{
+  o String shipmentdetailsID
+  --> shipment whole_shipment
+  --> distributor supplier
+  --> kuku_retail destination_shop
+  o String weight
+  o STATUS status
+}
+
+asset kuku_retail identified by outletID{
+  o String outletID
+  o ADDRESS kukushop_address
+}
+
+asset kuku_details identified by orderdetailID{
+  o String orderdetailID
+  o PORTION[] portion_choice
+  o EXTRAS extras optional
+}
+
+asset order identified by orderID {
+  o String orderID
+  --> kuku_details kuku 
+  --> kuku_retail shop
+  --> customer consumer
+  o STATUS status
+}
+
+
+/* TRANSACTIONS    */
+transaction production{
+
+}
+
+transaction requestApproval{
+
+}
+
+transaction process{
+
+}
+
+transaction placeShipmentorder {
+  o String shipmentdetailsID 
+  --> shipment shipment
+  --> distributor Distributor
+  --> kuku_retail retailShop
+}
+
+transaction distribute_shipment{
+
+}
+
+transaction retailOrder{
+
+}
+
+transaction dispatchorder{
+
+}
+
+transaction deliverOrder{
+
+}
+transaction
